@@ -22,10 +22,10 @@ public class DefinitionSteps {
         endUser.looks_for(word);
     }
 
-    @Then("they should see the definition '$definition'")
-    public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {
-        endUser.should_see_definition(definition);
-    }
+//    @Then("they should see the definition '$definition'")
+//    public void thenTheyShouldSeeADefinitionContainingTheWords(String definition) {
+//        endUser.should_see_definition(definition);
+//    }
 
     @Given("opened google page with '$text'")
     public void openedGooglePageWithText(String text){
@@ -41,5 +41,26 @@ public class DefinitionSteps {
     public void selectedLanguagesFromEnglishtoUkrainian(){
         endUser.selectLanguages();
     }
+
+    @When("the user looks up the translation of the word '$word'")
+    public void whenTheUserLooksUpTheTranslationOfTheWord(String word) {
+        endUser.lookUpTranslation(word);
+    }
+
+    @Then("they should see the translation '$translation'")
+    public void thenTheyShouldSeeTheTranslation(String translation) {
+        endUser.shouldSeeTranslation(translation);
+    }
+
+    @Then("the number of characters must be '$number'")
+    public void thenTheNumberOfCharactersMustBe(int number){
+        endUser.checkNumberOfCharacters(number);
+    }
+
+    @Then("they should see the definition '$definition'")
+    public void thenTheyShouldSeeTheDefinition(String definition){
+        endUser.shouldSeeTheDefinition(definition);
+    }
+
 
 }

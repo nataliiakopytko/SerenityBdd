@@ -8,6 +8,7 @@ import net.thucydides.core.annotations.Step;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
+import static org.junit.Assert.*;
 
 public class EndUserSteps {
 
@@ -42,22 +43,42 @@ public class EndUserSteps {
     }
 
     @Step
-    public void searchInGoogle(String text){
+    public void searchInGoogle(String text) {
         googlePage.open();
         googlePage.searchText(text);
         googlePage.getFirstLink().click();
     }
 
     @Step
-    public void searchForGoogleTranslatePage(){
+    public void searchForGoogleTranslatePage() {
         googlePage.open();
         googlePage.searchText("Google Translate");
         googlePage.getFirstLink().click();
     }
 
     @Step
-    public void selectLanguages(){
+    public void selectLanguages() {
         googleTranslatePage.selectEnglish();
         googleTranslatePage.selectUkrainian();
+    }
+
+    @Step
+    public void lookUpTranslation(String word) {
+        googleTranslatePage.typeWord(word);
+    }
+
+    @Step
+    public void shouldSeeTranslation(String translation) {
+        assertEquals(googleTranslatePage.getTranslatedWord(), translation);
+    }
+
+    @Step
+    public void checkNumberOfCharacters(int number) {
+        assertEquals(googleTranslatePage.getNumberOfCharacters(), number);
+    }
+
+    @Step
+    public void shouldSeeTheDefinition(String definition) {
+        assertEquals(googleTranslatePage.getDefinition(), definition);
     }
 }

@@ -1,17 +1,11 @@
 package SerenityBdd.pages;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
-import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-@DefaultUrl("https://www.google.com/")
-
 public class GoogleTranslatePage extends PageObject {
-
-    private WebDriver driver;
 
     @FindBy(xpath = "//div[@class = 'sl-more tlid-open-source-language-list'] ")
     private WebElement moreButtonLeft;
@@ -25,13 +19,14 @@ public class GoogleTranslatePage extends PageObject {
     @FindBy(xpath = "//div[@class = 'language_list_section']//div[@class = 'language_list_item_icon tl_list_uk_checkmark']")
     private WebElement secondLanguage;
 
-    public String getFirstLanguage(){
-       return firstLanguage.getText();
-    }
+    @FindBy(xpath = "//textarea[@id = 'source']")
+    private WebElement inputField;
 
-    public String getSecondLanguage(){
-        return secondLanguage.getText();
-    }
+    @FindBy(xpath = "//span[@title]")
+    private WebElement translatedWord;
+
+    @FindBy(xpath = "//div[@class='gt-def-info'][2]//div[@class='gt-def-row']")
+    private WebElement definition;
 
     public void selectEnglish() {
         moreButtonLeft.click();
@@ -40,5 +35,23 @@ public class GoogleTranslatePage extends PageObject {
     public void selectUkrainian(){
         moreButtonRight.click();
         secondLanguage.click();
+    }
+
+    public void typeWord(String word){
+        inputField.click();
+        inputField.sendKeys(word);
+        inputField.sendKeys(Keys.RETURN);
+    }
+
+    public String getTranslatedWord(){
+        return translatedWord.getText();
+    }
+
+    public int getNumberOfCharacters() {
+       return getTranslatedWord().length();
+    }
+
+    public String getDefinition() {
+        return definition.getText();
     }
 }
